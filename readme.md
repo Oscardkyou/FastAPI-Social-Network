@@ -1,4 +1,5 @@
-![Social Network](121233.png)
+![Social Network](./121233.png)
+
 # FastAPI Social Network
 
 ## Overview
@@ -52,6 +53,21 @@ FastAPI Social Network is a simple social media platform built with FastAPI, SQL
 
 7. Access the API documentation at `http://127.0.0.1:8000/docs`.
 
+## Project Structure
 
-
-
+```plaintext
+fastapi_social_network/
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── crud.py
+│   ├── database.py
+│   ├── dependencies.py
+│   └── security.py
+├── images/
+│   └── social_network.jpg
+├── .env
+├── requirements.txt
+└── README.md
