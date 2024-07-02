@@ -1,6 +1,5 @@
+![Social Network](121233.png)
 # FastAPI Social Network
-
-![Social Network](123.png)
 
 ## Overview
 
