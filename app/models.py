@@ -1,25 +1,18 @@
 from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from .database import Base
 from datetime import datetime
+from fastapi_users.db import SQLAlchemyBaseUserTable
+from .database import Base
 
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(255), unique=True, index=True)
-    email = Column(String(255), unique=True, index=True)
-    hashed_password = Column(String(255))
-    profile_image = Column(String(255), nullable=True)
-    posts = relationship("Post", back_populates="owner")
-    comments = relationship("Comment", back_populates="owner")
-    likes = relationship("Like", back_populates="owner")
-    notifications = relationship("Notification", back_populates="user")
+class User(SQLAlchemyBaseUserTable, Base):
+    username = Column(String, unique=True, index=True)
+    profile_image = Column(String, nullable=True)
 
 class Post(Base):
     __tablename__ = "posts"
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String(255), index=True)
-    content = Column(Text)  # Изменено на Text
+    content = Column(Text)
     timestamp = Column(DateTime, default=datetime.utcnow)
     user_id = Column(Integer, ForeignKey("users.id"))
     owner = relationship("User", back_populates="posts")
@@ -29,7 +22,7 @@ class Post(Base):
 class Comment(Base):
     __tablename__ = "comments"
     id = Column(Integer, primary_key=True, index=True)
-    content = Column(Text)  # Изменено на Text
+    content = Column(Text)
     timestamp = Column(DateTime, default=datetime.utcnow)
     user_id = Column(Integer, ForeignKey("users.id"))
     post_id = Column(Integer, ForeignKey("posts.id"))
