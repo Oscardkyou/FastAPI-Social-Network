@@ -1,20 +1,19 @@
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
+from fastapi_users import schemas
 
-class UserBase(BaseModel):
+class UserRead(schemas.BaseUser[int]):
     username: str
-    email: str
+    profile_image: Optional[str]
 
-class UserCreate(UserBase):
-    password: str
+class UserCreate(schemas.BaseUserCreate):
+    username: str
+    profile_image: Optional[str]
 
-class User(UserBase):
-    id: int
-    profile_image: Optional[str] = None
-
-    class Config:
-        orm_mode = True
+class UserUpdate(schemas.BaseUserUpdate):
+    username: Optional[str]
+    profile_image: Optional[str]
 
 class PostBase(BaseModel):
     title: str
